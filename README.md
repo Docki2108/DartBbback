@@ -1,1 +1,1 @@
-A simple command-line application.
+Бэк ç использованием conduit, postgres
