@@ -1,1 +1,1 @@
-Бэк ç использованием conduit, postgres
+Бэк с использованием conduit, postgres 
