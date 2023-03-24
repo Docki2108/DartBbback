@@ -14,4 +14,14 @@ abstract class AppUtils {
       rethrow;
     }
   }
+
+  static int getIdFromHeader(String header) {
+    try {
+      final token = const AuthorizationBearerParser().parse(header);
+      final id = getIdFromToken(token ?? "");
+      return id;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

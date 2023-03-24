@@ -1,11 +1,13 @@
 import 'dart:io';
-import 'package:bbback/appservice.dart';
+import 'package:bbback/app_service.dart';
 import 'package:conduit/conduit.dart';
 
-void main(List<String> arguments) async {
+void main() async {
   //порт, на котором будет запущена апишка
-  final api_port = int.parse(Platform.environment["PORT"] ?? '8080');
+  final port = int.parse(Platform.environment["PORT"] ?? '8888');
 
-  final service = Application<AppService>()..options.port = 5432;
+  final service = Application<AppService>()
+    ..options.port = port
+    ..options.configurationFilePath = 'config.yaml';
   await service.start(numberOfInstances: 3, consoleLogging: true);
 }
