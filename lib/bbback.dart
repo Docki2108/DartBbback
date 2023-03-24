@@ -13,19 +13,6 @@ void main() async {
   final service = Application<AppService>()
     ..options.port = port
     ..options.configurationFilePath = 'config.yaml';
+
   await service.start(numberOfInstances: 3, consoleLogging: true);
 }
-
-// class AppService extends ApplicationChannel {
-//   late final ManagedContext managedContext;
-
-//   @override
-//   Controller get entryPoint => Router()
-//     ..route('tiken/[:refresh]').link(
-//       () => AppAuthController(managedContext),
-//     )
-    
-//   // ..route('accounting/[:id]')
-//   //     .link(AppTokenContoller.new)!
-//   //     .link(() => AppAccountingController(managedContext));
-// }

@@ -175,13 +175,12 @@ class AppAuthController extends ResourceController {
   Future<Response> signUp(@Bind.body() User user) async {
     if (user.password == null || user.userName == null || user.email == null) {
       return Response.badRequest(
-        body:
-            ModelResponse(message: 'Поля password username email обязательны'),
+        body: ModelResponse(
+            message: 'Поля password, username и email обязательны'),
       );
     }
     final salt = generateRandomSalt();
     final hashPassword = generatePasswordHash(user.password!, salt);
-
     try {
       late final int id;
       await managedContext.transaction((transaction) async {
@@ -195,9 +194,7 @@ class AppAuthController extends ResourceController {
         id = createdUser.id!;
         _updateTokens(id, transaction);
       });
-
       final userData = await managedContext.fetchObjectWithID<User>(id);
-
       return Response.ok(ModelResponse(
         data: userData!.backing.contents,
         message: 'Пользователь успешно зарегистрировался',

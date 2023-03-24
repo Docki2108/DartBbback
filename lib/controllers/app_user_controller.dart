@@ -67,27 +67,20 @@ class AppUserConttolelr extends ResourceController {
             element.hashPassword,
           ],
         );
-
       final fUser = await qFindUser.fetchOne();
-
       final oldHashPassword =
           generatePasswordHash(oldPassword, fUser!.salt ?? "");
-
       if (oldHashPassword != fUser.hashPassword) {
         return AppResponse.badrequest(
           message: 'Неверный пароль',
         );
       }
-
       final newHashPassword =
           generatePasswordHash(newPassword, fUser.salt ?? "");
-
       final qUpdateUser = Query<User>(managedContext)
         ..where((x) => x.id).equalTo(id)
         ..values.hashPassword = newHashPassword;
-
       await qUpdateUser.update();
-
       return AppResponse.ok(body: 'Пароль успешно обновлен');
     } catch (e) {
       return AppResponse.serverError(e, message: 'Ошибка обновления пароля');
